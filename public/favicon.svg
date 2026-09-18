@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#8B2704"/>
+  <!-- Le F du logo FADA, aux proportions du logo officiel -->
+  <path fill="#F3F3CB" d="M10.75 12H53.25V26H30.75V30H49.25V42.1H30.75V52H10.75Z"/>
+</svg>
