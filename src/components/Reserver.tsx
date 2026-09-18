@@ -3,6 +3,7 @@ import { CONTACT, RESEAUX, RESERVATION } from '../data/infos'
 import { envoyerDemande, type Demande } from '../utils/envoi'
 
 const VIDE: Demande = { nom: '', email: '', telephone: '', date: '', personnes: '', message: '' }
+import Titre from './Titre'
 
 export default function Reserver() {
   const [demande, setDemande] = useState<Demande>(VIDE)
@@ -31,7 +32,7 @@ export default function Reserver() {
       <div className="container">
         <header className="section__entete" data-reveal>
           <p className="surtitre">Réserver</p>
-          <h2 className="titre">Une table, un verre, une soirée</h2>
+          <Titre lignes={['Une table, un verre,', 'une soirée']} />
         </header>
 
         <div className="reservations">

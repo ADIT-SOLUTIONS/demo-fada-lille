@@ -1,6 +1,7 @@
 import { ACCES, ADRESSE, AVIS, CONTACT, DATE_AVIS, HORAIRES, LIENS_CARTE, NOTES_HORAIRES, PRESSE } from '../data/infos'
 import { useStatut } from '../hooks/useStatut'
 import { formatHeure } from '../utils/horaires'
+import Titre from './Titre'
 
 export default function Infos() {
   const statut = useStatut()
@@ -10,7 +11,7 @@ export default function Infos() {
       <div className="container">
         <header className="section__entete" data-reveal>
           <p className="surtitre">Infos pratiques</p>
-          <h2 className="titre">Horaires & accès</h2>
+          <Titre lignes={['Horaires & accès']} />
         </header>
 
         <div className="infos__grille">

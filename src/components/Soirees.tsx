@@ -1,5 +1,6 @@
 import { CARTES_PDF, MENU_GROUPE, RESERVATION, SERVICES } from '../data/infos'
 import Photo from './Photo'
+import Titre from './Titre'
 
 export default function Soirees() {
   return (
@@ -7,11 +8,7 @@ export default function Soirees() {
       <div className="container soirees__grille">
         <div className="soirees__texte" data-reveal>
           <p className="surtitre">Dancing</p>
-          <h2 className="titre">
-            Des DJs,
-            <br />
-            des lives
-          </h2>
+          <Titre lignes={['Des DJs,', 'des lives']} />
           <p className="soirees__accroche">Des lumières qui claquent et une vraie énergie de fête.</p>
           <p className="soirees__intro">
             À l’étage, des DJs et des lives transforment le dîner en soirée. Au rez-de-chaussée, le son monte au fil de

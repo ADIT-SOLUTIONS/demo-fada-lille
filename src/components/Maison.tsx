@@ -1,5 +1,6 @@
 import { ETAGES, HISTOIRE } from '../data/infos'
 import Photo from './Photo'
+import Titre from './Titre'
 
 const CHIFFRES = [
   { valeur: '100', libelle: 'places assises au bar' },
@@ -16,11 +17,7 @@ export default function Maison() {
         <header className="section__entete section__entete--ligne" data-reveal>
           <div>
             <p className="surtitre">La maison</p>
-            <h2 className="titre">
-              Deux étages,
-              <br />
-              deux ambiances
-            </h2>
+            <Titre lignes={['Deux étages,', 'deux ambiances']} />
           </div>
           <p className="section__texte">
             Au rez-de-chaussée, le bar et sa grande terrasse. À l’étage, le restaurant festif. Une seule promesse : bien

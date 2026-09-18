@@ -1,5 +1,6 @@
 import type { NomPhoto } from '../data/photos'
 import Photo from './Photo'
+import Titre from './Titre'
 
 const GALERIE: Array<{ nom: NomPhoto; legende: string }> = [
   { nom: 'lustre-mezzanine', legende: 'Le lustre de chaînes, sur toute la hauteur' },
@@ -17,11 +18,7 @@ export default function Lieu() {
         <header className="section__entete section__entete--ligne" data-reveal>
           <div>
             <p className="surtitre">Le lieu</p>
-            <h2 className="titre">
-              Chaînes dorées,
-              <br />
-              velours rouge
-            </h2>
+            <Titre lignes={['Chaînes dorées,', 'velours rouge']} />
           </div>
           <p className="section__texte">
             Murs terracotta, mezzanine vitrée, banquettes au motif tigré, niches en arc et suspensions en raffia : un
