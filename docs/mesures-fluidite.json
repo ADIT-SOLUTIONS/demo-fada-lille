@@ -1,0 +1,200 @@
+{
+  "date": "2026-09-18T13:32:06.630Z",
+  "base": "http://localhost:5218",
+  "resultats": [
+    {
+      "scenario": "Démo (/), version 1 puis 2",
+      "pret_ms": 4529,
+      "chargement": {
+        "duree_s": 4.5,
+        "images": 222,
+        "ips": 49.1,
+        "mediane_ms": 16.7,
+        "p95_ms": 17.2,
+        "p99_ms": 116.9,
+        "max_ms": 300.1,
+        "images_sup_34ms": 5,
+        "gels_sup_50ms": 5,
+        "taches_longues": 4,
+        "tache_max_ms": 222
+      },
+      "defilement": [
+        {
+          "page": "/v1/",
+          "duree_s": 7,
+          "images": 411,
+          "ips": 59,
+          "mediane_ms": 16.7,
+          "p95_ms": 17.3,
+          "p99_ms": 33.2,
+          "max_ms": 49.8,
+          "images_sup_34ms": 1,
+          "gels_sup_50ms": 0,
+          "taches_longues": 0,
+          "tache_max_ms": 0
+        },
+        {
+          "page": "/v2/",
+          "duree_s": 9.4,
+          "images": 553,
+          "ips": 58.8,
+          "mediane_ms": 16.7,
+          "p95_ms": 17,
+          "p99_ms": 17.1,
+          "max_ms": 133.1,
+          "images_sup_34ms": 1,
+          "gels_sup_50ms": 1,
+          "taches_longues": 0,
+          "tache_max_ms": 0
+        }
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) Arc(TM) Pro Graphics (0x00007D55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "definition_3d_finale": 1,
+      "erreurs_console": []
+    },
+    {
+      "scenario": "Version 2 immersive, ordinateur",
+      "pret_ms": 1564,
+      "chargement": {
+        "duree_s": 1.6,
+        "images": 43,
+        "ips": 27.6,
+        "mediane_ms": 16.7,
+        "p95_ms": 133.3,
+        "p99_ms": 366.7,
+        "max_ms": 366.7,
+        "images_sup_34ms": 3,
+        "gels_sup_50ms": 3,
+        "taches_longues": 2,
+        "tache_max_ms": 366
+      },
+      "defilement": [
+        {
+          "page": "/v2/",
+          "duree_s": 9.4,
+          "images": 547,
+          "ips": 58.2,
+          "mediane_ms": 16.7,
+          "p95_ms": 17.1,
+          "p99_ms": 33.4,
+          "max_ms": 50.1,
+          "images_sup_34ms": 1,
+          "gels_sup_50ms": 1,
+          "taches_longues": 0,
+          "tache_max_ms": 0
+        }
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) Arc(TM) Pro Graphics (0x00007D55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "definition_3d_finale": 1,
+      "erreurs_console": []
+    },
+    {
+      "scenario": "Version 2 immersive, mobile (processeur ralenti ×4)",
+      "pret_ms": 4859,
+      "chargement": {
+        "duree_s": 4.9,
+        "images": 46,
+        "ips": 9.5,
+        "mediane_ms": 16.7,
+        "p95_ms": 216.7,
+        "p99_ms": 2166.7,
+        "max_ms": 2166.7,
+        "images_sup_34ms": 11,
+        "gels_sup_50ms": 11,
+        "taches_longues": 10,
+        "tache_max_ms": 1871
+      },
+      "defilement": [
+        {
+          "page": "/v2/",
+          "duree_s": 13.9,
+          "images": 685,
+          "ips": 49.3,
+          "mediane_ms": 16.7,
+          "p95_ms": 33.4,
+          "p99_ms": 50.1,
+          "max_ms": 400.3,
+          "images_sup_34ms": 20,
+          "gels_sup_50ms": 9,
+          "taches_longues": 0,
+          "tache_max_ms": 0
+        }
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) Arc(TM) Pro Graphics (0x00007D55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "definition_3d_finale": 1.5,
+      "erreurs_console": []
+    },
+    {
+      "scenario": "Version 1 classique, ordinateur",
+      "pret_ms": 902,
+      "chargement": {
+        "duree_s": 0.9,
+        "images": 25,
+        "ips": 28,
+        "mediane_ms": 16.7,
+        "p95_ms": 50.2,
+        "p99_ms": 116.6,
+        "max_ms": 116.6,
+        "images_sup_34ms": 2,
+        "gels_sup_50ms": 2,
+        "taches_longues": 2,
+        "tache_max_ms": 236
+      },
+      "defilement": [
+        {
+          "page": "/v1/",
+          "duree_s": 7,
+          "images": 417,
+          "ips": 59.9,
+          "mediane_ms": 16.7,
+          "p95_ms": 16.9,
+          "p99_ms": 17.1,
+          "max_ms": 17.1,
+          "images_sup_34ms": 0,
+          "gels_sup_50ms": 0,
+          "taches_longues": 0,
+          "tache_max_ms": 0
+        }
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) Arc(TM) Pro Graphics (0x00007D55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "definition_3d_finale": null,
+      "erreurs_console": []
+    },
+    {
+      "scenario": "Version 1 classique, mobile (processeur ralenti ×4)",
+      "pret_ms": 5142,
+      "chargement": {
+        "duree_s": 5.1,
+        "images": 38,
+        "ips": 7.4,
+        "mediane_ms": 16.7,
+        "p95_ms": 1666.8,
+        "p99_ms": 2100.3,
+        "max_ms": 2100.3,
+        "images_sup_34ms": 6,
+        "gels_sup_50ms": 6,
+        "taches_longues": 6,
+        "tache_max_ms": 1852
+      },
+      "defilement": [
+        {
+          "page": "/v1/",
+          "duree_s": 12.5,
+          "images": 740,
+          "ips": 59.3,
+          "mediane_ms": 16.7,
+          "p95_ms": 16.9,
+          "p99_ms": 17,
+          "max_ms": 66.8,
+          "images_sup_34ms": 3,
+          "gels_sup_50ms": 1,
+          "taches_longues": 0,
+          "tache_max_ms": 0
+        }
+      ],
+      "gpu": "ANGLE (Intel, Intel(R) Arc(TM) Pro Graphics (0x00007D55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "definition_3d_finale": null,
+      "erreurs_console": []
+    }
+  ]
+}
