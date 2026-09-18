@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { LOGO_CONTOURS, LOGO_HAUTEUR, LOGO_LARGEUR } from '../../../src/data/logo-trace'
 import { MEZZANINE, NB_AMPOULES, PLAFOND, RAYON_BRIN, RAYON_SALLE, RAYON_VIDE, disposition } from './disposition'
 import { CLES_CAMERA, etatScene, indiceCamera, intensiteAmpoule } from './sequence'
@@ -21,6 +22,14 @@ type OptionsScene = {
 const pause = (ms = 0) => new Promise<void>((resoudre) => setTimeout(resoudre, ms))
 const vec3 = (p: [number, number, number]) => new THREE.Vector3(...p)
 
+/** Réunit des géométries en une seule (un seul appel de dessin), puis libère les morceaux. */
+function fusionner(morceaux: THREE.BufferGeometry[]) {
+  const geometrie = mergeGeometries(morceaux)
+  morceaux.forEach((m) => m.dispose())
+  if (!geometrie) throw new Error('Fusion des géométries impossible')
+  return geometrie
+}
+
 /** Enseigne néon : tubes qui suivent le contour du logo officiel, largeur donnée en mètres. */
 function geometriesNeon(largeur: number) {
   const k = largeur / LOGO_LARGEUR
@@ -34,7 +43,7 @@ function geometriesNeon(largeur: number) {
     coeur.push(new THREE.TubeGeometry(chemin, segments, 0.011, 6, true))
     halo.push(new THREE.TubeGeometry(chemin, segments, 0.05, 6, true))
   }
-  return { coeur, halo }
+  return { coeur: fusionner(coeur), halo: fusionner(halo) }
 }
 
 /**
@@ -105,13 +114,18 @@ export async function creerScene(canvas: HTMLCanvasElement, options: OptionsScen
   scene.add(chaines)
   await etape()
 
-  /* Anneaux qui portent chaque étage de chaînes */
+  /* Anneaux qui portent chaque étage de chaînes, et main courante de la mezzanine : même métal, un seul appel de dessin */
   const matMetal = matiere(S.surfaceVertex, S.surfaceFragment, { uCouleur: { value: new THREE.Color('#8a5a2b') }, uBrillance: { value: 2.5 } })
-  anneaux.forEach((a) => {
-    const anneau = new THREE.Mesh(garder(new THREE.TorusGeometry(a.rayon, 0.014, 6, 72).rotateX(Math.PI / 2)), matMetal)
-    anneau.position.set(a.x, a.y, a.z)
-    scene.add(anneau)
-  })
+  const metal = new THREE.Mesh(
+    garder(
+      fusionner([
+        ...anneaux.map((a) => new THREE.TorusGeometry(a.rayon, 0.014, 6, 72).rotateX(Math.PI / 2).translate(a.x, a.y, a.z)),
+        new THREE.TorusGeometry(RAYON_VIDE, 0.022, 6, 128).rotateX(Math.PI / 2).translate(0, MEZZANINE + 1, 0),
+      ]),
+    ),
+    matMetal,
+  )
+  scene.add(metal)
 
   /* Ampoules tubes, cordons et halos */
   const tube = new THREE.CylinderGeometry(0.017, 0.017, 0.28, 10, 1, false)
@@ -164,21 +178,24 @@ export async function creerScene(canvas: HTMLCanvasElement, options: OptionsScen
   plafond.position.y = PLAFOND
   scene.add(murs, sol, plafond)
 
+  // Dalle de la mezzanine (dessus, dessous et chant) en une seule géométrie
   const matDalle = matiere(S.surfaceVertex, S.surfaceFragment, { uCouleur: { value: new THREE.Color('#7a2c14') }, uBrillance: { value: 0.2 } }, { side: THREE.DoubleSide })
-  const dessus = new THREE.Mesh(garder(new THREE.RingGeometry(RAYON_VIDE, RAYON_SALLE, 96, 1).rotateX(-Math.PI / 2)), matDalle)
-  dessus.position.y = MEZZANINE
-  const dessous = new THREE.Mesh(garder(new THREE.RingGeometry(RAYON_VIDE, RAYON_SALLE, 96, 1).rotateX(Math.PI / 2)), matDalle)
-  dessous.position.y = MEZZANINE - 0.32
-  const chant = new THREE.Mesh(garder(new THREE.CylinderGeometry(RAYON_VIDE, RAYON_VIDE, 0.32, 96, 1, true)), matDalle)
-  chant.position.y = MEZZANINE - 0.16
+  const dalle = new THREE.Mesh(
+    garder(
+      fusionner([
+        new THREE.RingGeometry(RAYON_VIDE, RAYON_SALLE, 96, 1).rotateX(-Math.PI / 2).translate(0, MEZZANINE, 0),
+        new THREE.RingGeometry(RAYON_VIDE, RAYON_SALLE, 96, 1).rotateX(Math.PI / 2).translate(0, MEZZANINE - 0.32, 0),
+        new THREE.CylinderGeometry(RAYON_VIDE, RAYON_VIDE, 0.32, 96, 1, true).translate(0, MEZZANINE - 0.16, 0),
+      ]),
+    ),
+    matDalle,
+  )
   const vitre = new THREE.Mesh(
     garder(new THREE.CylinderGeometry(RAYON_VIDE, RAYON_VIDE, 1, 96, 1, true)),
     matiere(S.surfaceVertex, S.vitreFragment, {}, { transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }),
   )
   vitre.position.y = MEZZANINE + 0.5
-  const main = new THREE.Mesh(garder(new THREE.TorusGeometry(RAYON_VIDE, 0.022, 6, 128).rotateX(Math.PI / 2)), matMetal)
-  main.position.y = MEZZANINE + 1
-  scene.add(dessus, dessous, chant, vitre, main)
+  scene.add(dalle, vitre)
   await etape()
 
   /* Enseigne néon FADA sur le rideau rouge, au rez-de-chaussée */
@@ -191,12 +208,10 @@ export async function creerScene(canvas: HTMLCanvasElement, options: OptionsScen
     depthWrite: false,
     blending: THREE.AdditiveBlending,
   })
-  coeur.forEach((g) => neon.add(new THREE.Mesh(garder(g), matNeon)))
-  halo.forEach((g) => {
-    const m = new THREE.Mesh(garder(g), matHaloNeon)
-    m.renderOrder = 9
-    neon.add(m)
-  })
+  const tubesNeon = new THREE.Mesh(garder(coeur), matNeon)
+  const halosNeon = new THREE.Mesh(garder(halo), matHaloNeon)
+  halosNeon.renderOrder = 9
+  neon.add(tubesNeon, halosNeon)
   const rayonNeon = RAYON_SALLE - 0.14
   neon.position.set(Math.cos(S.ANGLE_NEON) * rayonNeon, 2.3, Math.sin(S.ANGLE_NEON) * rayonNeon)
   neon.lookAt(0, 2.3, 0)
