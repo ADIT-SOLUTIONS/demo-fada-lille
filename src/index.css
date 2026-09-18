@@ -317,10 +317,8 @@ textarea {
 }
 
 .header--plein {
-  background: rgba(243, 243, 203, 0.96);
+  background: rgba(243, 243, 203, 0.97);
   border-bottom-color: var(--ligne);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
 }
 
 .header__inner {
