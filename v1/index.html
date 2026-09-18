@@ -23,8 +23,14 @@
     <meta property="og:image" content="https://[DOMAINE]/images/og-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="preload" as="image" href="/images/bar-soiree-900.webp" media="(min-width: 641px)" />
-    <link rel="preload" as="image" href="/images/bar-soiree-600.webp" media="(max-width: 640px)" />
+<!-- Même choix de fichier que la photo d'accueil (srcset et sizes identiques) : rien de préchargé pour rien -->
+    <link
+      rel="preload"
+      as="image"
+      imagesrcset="/images/bar-soiree-600.webp 600w, /images/bar-soiree-900.webp 900w, /images/bar-soiree.webp 1400w"
+      imagesizes="(min-width: 961px) 42vw, (min-width: 641px) 60vw, 100vw"
+      fetchpriority="high"
+    />
 
     <script type="application/ld+json">
       {
